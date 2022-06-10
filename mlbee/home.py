@@ -12,7 +12,7 @@ import io
 from functools import partial
 from itertools import zip_longest
 
-import hanzidentifier
+# import hanzidentifier
 import logzero
 import numpy as np
 import pandas as pd

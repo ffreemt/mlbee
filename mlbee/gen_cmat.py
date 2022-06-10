@@ -7,13 +7,15 @@ import more_itertools as mit
 import numpy as np
 
 from tqdm import tqdm
-from model_pool import load_model_s
+
+# from model_pool import load_model_s
+from hf_model_s_cpu import model_s
 from logzero import logger
 
 from mlbee.cos_matrix2 import cos_matrix2
 
 try:
-    model_s = load_model_s()
+    model = model_s()
 except Exception as _:
     logger.exception(_)
     raise
@@ -51,7 +53,7 @@ def gen_cmat(
     with tqdm(total=tot) as pbar:
         for chunk in mit.chunked(text1, bsize):
             try:
-                vec = model_s.encode(chunk)
+                vec = model.encode(chunk)
             except Exception as exc:
                 logger.error(exc)
                 raise
@@ -59,7 +61,7 @@ def gen_cmat(
             pbar.update()
         for chunk in mit.chunked(text2, bsize):
             try:
-                vec = model_s.encode(chunk)
+                vec = model.encode(chunk)
             except Exception as exc:
                 logger.error(exc)
                 raise

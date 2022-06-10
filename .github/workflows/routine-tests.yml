@@ -20,6 +20,18 @@ jobs:
       - uses: abatilo/actions-poetry@v2.0.0
         with:
           poetry-version: ${{ matrix.poetry-version }}
+      - name: Extra install for linux and non-linux
+        run: |
+          if [ "$RUNNER_OS" == "Linux" ]; then
+            poetry run pip install torch torchvision --extra-index-url https://download.pytorch.org/whl/cpu
+          else
+            poetry run pip install torch torchvision
+          fi
+        shell: bash
+      - name: Extra install common
+        run: |
+          poetry run pip install transformers tqdm numpy scikit-learn nltk sentencepiece pillow
+          poetry run pip install --no-deps sentence-transformers
       - name: Install packages
         run: poetry install  # --no-dev
       - name: Run flake8
