@@ -29,6 +29,7 @@ hf-model-s-cpu = "^0.1.1"
 cchardet = "^2.1.7"
 streamlit-aggrid = "^0.2.3"
 typer = "^0.4.1"
+XlsxWriter = "^3.0.3"
 
 [tool.poe.executor]
 type = "poetry"

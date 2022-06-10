@@ -116,24 +116,26 @@ def home():  # noqa
         logger.debug(" df.empty, return")
         return None
 
+    # print estimated completion time
+    len1 = len([elm.strip() for elm in list1 if elm.strip()])
+    len2 = len([elm.strip() for elm in list2 if elm.strip()])
+    len12 = len1 + len2
+    time0 = len12 * 0.4
+    time1 = len12 * 1
+    eta = pendulum.now() + pendulum.duration(seconds=len12 * 0.66)
+
+    in_words0 = pendulum.duration(seconds=time0).in_words()
+    in_words1 = pendulum.duration(seconds=time1).in_words()
+    diff_for_humans = eta.diff_for_humans()
+    dt_str = eta.to_datetime_string()
+    timezone_name = eta.timezone_name
+    _ = (
+        f"Estimated time to complete: {in_words0} to  {in_words1}; "
+        f"ETA: {diff_for_humans} ({dt_str} {timezone_name}) "
+    )
+
     # only show this for upload
     if state.ns.sourcetype in ["upload"]:
-        len1 = len([elm.strip() for elm in list1 if elm.strip()])
-        len2 = len([elm.strip() for elm in list2 if elm.strip()])
-        len12 = len1 + len2
-        time0 = len12 * 0.4
-        time1 = len12 * 1
-        eta = pendulum.now() + pendulum.duration(seconds=len12 * 0.66)
-
-        in_words0 = pendulum.duration(seconds=time0).in_words()
-        in_words1 = pendulum.duration(seconds=time1).in_words()
-        diff_for_humans = eta.diff_for_humans()
-        dt_str = eta.to_datetime_string()
-        timezone_name = eta.timezone_name
-        _ = (
-            f"Estimated time to complete: {in_words0} to  {in_words1}; "
-            f"ETA: {diff_for_humans} ({dt_str} {timezone_name}) "
-        )
         st.info(_)
         _ = st.expander("to be aligned", expanded=False)
         with _:
