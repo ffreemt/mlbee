@@ -1,0 +1,37 @@
+"""
+king
+In [21]: len(de)
+Out[21]: 51
+
+In [22]: len(en)
+Out[22]: 51
+
+In [23]: len(" ".join(en))
+Out[23]: 11208
+
+In [24]: len(" ".join(de))
+Out[24]: 13532
+
+In [25]: %time en_vec = model_s.encode(en)
+CPU times: user 22 s, sys: 436 ms, total: 22.4 s
+Wall time: 22.4 s
+
+In [26]: %time de_vec = model_s.encode(de)
+CPU times: user 22.8 s, sys: 311 ms, total: 23.1 s
+Wall time: 23.1 s  .5s/para
+# .43-.45/paras
+
+en1 = loadparas("data/sternstunden04-en.txt")
+en2 = loadparas("data/sternstunden04-de.txt")
+
+len(en1)  # 30
+
+len(" ".join(en1))  # 29718  990.6/para
+	len(" ".join(en1).split())  # 29718  990.6/para
+len(" ".join(en2))  # 5148 words 171.6words/para
+len(" ".join(en1))  # 29718 word.36words/para
+
+%time en_vec1 = model_s.encode(en1)  # 19 s  .66s/para
+%time en_vec2 = model_s.encode(en2)  # 0.56/para
+%time en_vec12 = model_s.encode(en1 + en2)  # 38/60 .63s/paras
+"""
