@@ -29,7 +29,7 @@ msg = dedent(
 ).strip()
 msg = dedent(
     """
-   a multilingual (about 100 luanguage pairs) dualtext
+   a multilingual (50+ language pairs) dualtext
     aligner based on machine learning
 
     It takes about 1-2 s to process a pair of blocks (be it

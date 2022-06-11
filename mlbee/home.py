@@ -5,6 +5,7 @@ org ezbee_page.py.
 # pylint: disable=invalid-name
 # pylint: disable=too-many-locals, too-many-return-statements, too-many-branches, too-many-statements
 import base64
+import platform
 import inspect
 import io
 
@@ -120,9 +121,23 @@ def home():  # noqa
     len1 = len([elm.strip() for elm in list1 if elm.strip()])
     len2 = len([elm.strip() for elm in list2 if elm.strip()])
     len12 = len1 + len2
-    time0 = len12 * 0.4
-    time1 = len12 * 1
-    eta = pendulum.now() + pendulum.duration(seconds=len12 * 0.66)
+
+    time_min = 0.4
+    time_max = 1
+    time_av = .66
+
+    uname = platform.uname()
+    if "amz2" in uname.release or "forindo" in uname.node:
+        time_min /= 12
+        time_max /= 12
+        time_av /= 12
+
+    # time0 = len12 * 0.4
+    # time1 = len12 * 1
+    # eta = pendulum.now() + pendulum.duration(seconds=len12 * 0.66)
+    time0 = len12 * time_min
+    time1 = len12 * time_max
+    eta = pendulum.now() + pendulum.duration(seconds=len12 * time_av)
 
     in_words0 = pendulum.duration(seconds=time0).in_words()
     in_words1 = pendulum.duration(seconds=time1).in_words()
@@ -130,6 +145,7 @@ def home():  # noqa
     dt_str = eta.to_datetime_string()
     timezone_name = eta.timezone_name
     _ = (
+        f"Running in {uname.node} -- "
         f"Estimated time to complete: {in_words0} to  {in_words1}; "
         f"ETA: {diff_for_humans} ({dt_str} {timezone_name}) "
     )
