@@ -58,17 +58,17 @@ from logzero import logger
 from set_loglevel import set_loglevel
 from streamlit import session_state as state
 
-from mlbee import __version__
-from mlbee.utils import menu_items
-from mlbee.multipage import Multipage
+from st_mlbee import __version__
+from st_mlbee.utils import menu_items
+from st_mlbee.multipage import Multipage
 
-from mlbee.home import home
-from mlbee.settings import settings
-from mlbee.info import info
-from mlbee.utils import style_css
+from st_mlbee.home import home
+from st_mlbee.settings import settings
+from st_mlbee.info import info
+from st_mlbee.utils import style_css
 
 # curr_py = sys.version[:3]
-# msg = f"Some packages mlbee depends on can only run with Python 3.8, current python is **{curr_py}**, sorry..."
+# msg = f"Some packages st-mlbee depends on can only run with Python 3.8, current python is **{curr_py}**, sorry..."
 # assert curr_py == "3.8", msg
 
 os.environ["TZ"] = "Asia/Shanghai"
@@ -98,7 +98,7 @@ loggu.add(
 # from PIL import Image
 # page_icon=Image.open("icon.ico"),
 st.set_page_config(  # type: ignore
-    page_title=f"mlbee v{__version__}",
+    page_title=f"st-mlbee v{__version__}",
     # page_icon="🧊",
     page_icon="🐝",
     # layout="wide",

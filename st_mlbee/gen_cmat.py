@@ -12,7 +12,7 @@ from tqdm import tqdm
 from hf_model_s_cpu import model_s
 from logzero import logger
 
-from mlbee.cos_matrix2 import cos_matrix2
+from st_mlbee.cos_matrix2 import cos_matrix2
 
 try:
     model = model_s()

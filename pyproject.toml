@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "mlbee"
 version = "0.1.0-alpha.1"
-description = "mlbee"
+description = "st-mlbee"
 authors = ["ffreemt"]
 license = "MIT"
 readme = "README.md"
@@ -37,18 +37,18 @@ type = "poetry"
 [tool.poe.tasks]
 memo = "echo poe test or poetry run poe test"
 test = "pytest tests"
-pyright = "pyright mlbee"
-flake8 = "flake8 mlbee --ignore F401,E501,F841"
+pyright = "pyright st_mlbee"
+flake8 = "flake8 st_mlbee --ignore F401,E501,F841"
 check = ["pyright", "flake8"]
 export = "poetry export --without-hashes -f requirements.txt -o requirements.txt"
 build = "poetry build"
 publish = "poetry publish"
 release = ["test", "build", "publish"]
-lint = { cmd = "pylint mlbee" }
-isort = "isort tests mlbee"
-black = "black tests mlbee"
+lint = { cmd = "pylint st_mlbee" }
+isort = "isort tests st_mlbee"
+black = "black tests st_mlbee"
 formt = ["isort", "black"]
-docstyle = "pydocstyle --convention=google tests mlbee"
+docstyle = "pydocstyle --convention=google tests st_mlbee"
 prerelease = {cmd = "poetry version prerelease && sync-version"}
 tunnel = {cmd = "ssh -CN ip_or_hostname_defined_in_hosts -L 9091:127.0.0.1:9091"}
 
@@ -61,7 +61,7 @@ toml = "^0.10.2"
 poethepoet = "^0.10.0"
 
 [tool.poetry.scripts]
-"mlbee" = "mlbee.__main__:app"
+"st-mlbee" = "st_mlbee.__main__:app"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

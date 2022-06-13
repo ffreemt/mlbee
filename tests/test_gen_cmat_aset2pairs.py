@@ -31,8 +31,8 @@ len(" ".join(en2))  # 31478
 """
 from cmat2aset import cmat2aset
 from aset2pairs import aset2pairs
-from mlbee.gen_cmat import gen_cmat
-from mlbee.loadtext import loadparas
+from st_mlbee.gen_cmat import gen_cmat
+from st_mlbee.loadtext import loadparas
 
 paras1 = loadparas("data/sternstunden04-en.txt")
 paras2 = loadparas("data/sternstunden04-de.txt")

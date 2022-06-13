@@ -1,7 +1,7 @@
-"""Test mlbee."""
+"""Test st_mlbee."""
 # pylint: disable=broad-except
-from mlbee import __version__
-from mlbee import mlbee
+from st_mlbee import __version__
+from st_mlbee import st_mlbee
 
 
 def test_version():
@@ -12,6 +12,6 @@ def test_version():
 def test_sanity():
     """Check sanity."""
     try:
-        assert not mlbee()
+        assert not st_mlbee()
     except Exception:
         assert True

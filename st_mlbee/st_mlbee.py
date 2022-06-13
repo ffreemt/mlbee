@@ -5,10 +5,10 @@ from typing import List
 from cmat2aset import cmat2aset
 from logzero import logger
 
-from mlbee.gen_cmat import gen_cmat
+from st_mlbee.gen_cmat import gen_cmat
 
 
-def mlbee(
+def st_mlbee(
     text1: List[str],
     text2: List[str],
     eps: float = 10,
@@ -36,7 +36,7 @@ def mlbee(
         # from json_de2zh.gen_cmat import gen_cmat  # noqa  # pylint: disable=import-outside-toplevel
         cmat = gen_cmat(text1, text2)
         # logger.level is reset to 20 in fastlid
-        mlbee.cmat = cmat
+        st_mlbee.cmat = cmat
     except Exception as e:
         logger.exception(e)
         raise
@@ -44,7 +44,7 @@ def mlbee(
     try:
         # aset = cmat2aset(cmat.T)
         aset = cmat2aset(cmat, eps=eps, min_samples=min_samples)
-        mlbee.aset = aset
+        st_mlbee.aset = aset
     except Exception as e:
         logger.exception(e)
         raise
