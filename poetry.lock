@@ -376,6 +376,31 @@ python-versions = "*"
 devel = ["colorama", "jsonschema", "json-spec", "pylint", "pytest", "pytest-benchmark", "pytest-cache", "validictory"]
 
 [[package]]
+name = "fastlid"
+version = "0.1.7"
+description = "Detect languages via a fasttext model"
+category = "main"
+optional = false
+python-versions = ">=3.6,<4.0"
+
+[package.dependencies]
+fasttext = ">=0.9.2,<0.10.0"
+logzero = ">=1.7.0,<2.0.0"
+numpy = ">=1.20.3,<2.0.0"
+
+[[package]]
+name = "fasttext"
+version = "0.9.2"
+description = "fasttext Python bindings"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+numpy = "*"
+pybind11 = ">=2.2"
+
+[[package]]
 name = "filelock"
 version = "3.7.1"
 description = "A platform independent file lock."
@@ -895,6 +920,17 @@ optional = false
 python-versions = ">=3.5"
 
 [[package]]
+name = "morfessor"
+version = "2.0.6"
+description = "Morfessor"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.extras]
+docs = ["sphinx", "sphinxcontrib-napoleon"]
+
+[[package]]
 name = "nbclient"
 version = "0.6.4"
 description = "A client library for executing notebooks. Formerly nbconvert's ExecutePreprocessor."
@@ -1237,6 +1273,17 @@ python-versions = ">=3.7"
 numpy = ">=1.16.6"
 
 [[package]]
+name = "pybind11"
+version = "2.9.2"
+description = "Seamless operability between C++11 and Python"
+category = "main"
+optional = false
+python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,>=2.7"
+
+[package.extras]
+global = ["pybind11-global (==2.9.2)"]
+
+[[package]]
 name = "pycodestyle"
 version = "2.7.0"
 description = "Python style guide checker"
@@ -1538,6 +1585,37 @@ python-versions = ">=3.7"
 numpy = ">=1.16.5"
 
 [[package]]
+name = "seg-text"
+version = "0.1.2"
+description = "pack_name descr "
+category = "main"
+optional = false
+python-versions = ">=3.8,<4.0"
+
+[package.dependencies]
+fastlid = ">=0.1.7,<0.2.0"
+icecream = ">=2.1.1,<3.0.0"
+install = ">=1.3.5,<2.0.0"
+logzero = ">=1.7.0,<2.0.0"
+Morfessor = "2.0.6"
+numpy = ">=1.22.2,<2.0.0"
+sentence-splitter = ">=1.4,<2.0"
+tqdm = ">=4.62.3,<5.0.0"
+vtext = ">=0.2.0,<0.3.0"
+
+[[package]]
+name = "semantic-version"
+version = "2.10.0"
+description = "A library implementing the 'SemVer' scheme."
+category = "main"
+optional = false
+python-versions = ">=2.7"
+
+[package.extras]
+dev = ["Django (>=1.11)", "nose2", "tox", "check-manifest", "coverage", "flake8", "wheel", "zest.releaser", "readme-renderer (<25.0)", "colorama (<=0.4.1)"]
+doc = ["sphinx", "sphinx-rtd-theme"]
+
+[[package]]
 name = "semver"
 version = "2.13.0"
 description = "Python helper for Semantic Versioning (http://semver.org/)"
@@ -1559,6 +1637,17 @@ objc = ["pyobjc-framework-cocoa"]
 win32 = ["pywin32"]
 
 [[package]]
+name = "sentence-splitter"
+version = "1.4"
+description = "Text to sentence splitter using heuristic algorithm by Philipp Koehn and Josh Schroeder"
+category = "main"
+optional = false
+python-versions = ">=3.5"
+
+[package.dependencies]
+regex = ">=2017.12.12"
+
+[[package]]
 name = "sentencepiece"
 version = "0.1.96"
 description = "SentencePiece python wrapper"
@@ -1577,6 +1666,18 @@ python-versions = ">=3.8.3,<4.0.0"
 [package.dependencies]
 environs = ">=9.5.0,<10.0.0"
 logzero = ">=1.7.0,<2.0.0"
+
+[[package]]
+name = "setuptools-rust"
+version = "1.3.0"
+description = "Setuptools Rust extension plugin"
+category = "main"
+optional = false
+python-versions = ">=3.7"
+
+[package.dependencies]
+semantic-version = ">=2.8.2,<3"
+typing-extensions = ">=3.7.4.3"
 
 [[package]]
 name = "simplejson"
@@ -1970,6 +2071,19 @@ decorator = ">=3.4.0"
 test = ["pytest (>=2.2.3)", "flake8 (>=2.4.0)", "isort (>=4.2.2)"]
 
 [[package]]
+name = "vtext"
+version = "0.2.0"
+description = "Natural Language Processing in Rust with Python bidings"
+category = "main"
+optional = false
+python-versions = ">=3.6"
+
+[package.dependencies]
+numpy = ">=1.15.0"
+scipy = ">=1.1.0"
+setuptools-rust = ">=0.10.2"
+
+[[package]]
 name = "watchdog"
 version = "2.1.8"
 description = "Filesystem events monitoring"
@@ -2041,7 +2155,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8.3"
-content-hash = "4d98009b5b4b96e19c21e205e88a6e856ef4321da82fbb7a58134b86f39b89a8"
+content-hash = "bbd84e571c3522fe9890a9ca643114d82a62f2c0669322bfb6b7920612063533"
 
 [metadata.files]
 about-time = [
@@ -2303,6 +2417,13 @@ fastjsonschema = [
     {file = "fastjsonschema-2.15.3-py3-none-any.whl", hash = "sha256:ddb0b1d8243e6e3abb822bd14e447a89f4ab7439342912d590444831fa00b6a0"},
     {file = "fastjsonschema-2.15.3.tar.gz", hash = "sha256:0a572f0836962d844c1fc435e200b2e4f4677e4e6611a2e3bdd01ba697c275ec"},
 ]
+fastlid = [
+    {file = "fastlid-0.1.7-py3-none-any.whl", hash = "sha256:591dbee44ac501c9aa89abb97a13b11cf964c3b8c4add1bdf02b44d30463e18f"},
+    {file = "fastlid-0.1.7.tar.gz", hash = "sha256:a6693ea05b9e070b4656ce9320704688c0c0c6f09bf873d0add5184e96bdb055"},
+]
+fasttext = [
+    {file = "fasttext-0.9.2.tar.gz", hash = "sha256:665556f1f6dcb4fcbe25fa8ebcd4f71b18fa96a090de09d88d97a60cbd29dcb5"},
+]
 filelock = [
     {file = "filelock-3.7.1-py3-none-any.whl", hash = "sha256:37def7b658813cda163b56fc564cdc75e86d338246458c4c28ae84cabefa2404"},
     {file = "filelock-3.7.1.tar.gz", hash = "sha256:3a0fd85166ad9dbab54c9aec96737b744106dc5f15c0b09a6744a445299fcf04"},
@@ -2552,6 +2673,10 @@ mistune = [
 more-itertools = [
     {file = "more-itertools-8.13.0.tar.gz", hash = "sha256:a42901a0a5b169d925f6f217cd5a190e32ef54360905b9c39ee7db5313bfec0f"},
     {file = "more_itertools-8.13.0-py3-none-any.whl", hash = "sha256:c5122bffc5f104d37c1626b8615b511f3427aa5389b94d61e5ef8236bfbc3ddb"},
+]
+morfessor = [
+    {file = "Morfessor-2.0.6-py3-none-any.whl", hash = "sha256:7215e37909ebd2bafeeec5fdf4e339a25e61aee4895ff99317b9fb44eddab562"},
+    {file = "Morfessor-2.0.6.tar.gz", hash = "sha256:bb3beac234341724c5f640f65803071f62373a50dba854d5a398567f9aefbab2"},
 ]
 nbclient = [
     {file = "nbclient-0.6.4-py3-none-any.whl", hash = "sha256:f251bba200a2b401a061dfd700a7a70b5772f664fb49d4a2d3e5536ec0e98c76"},
@@ -2830,6 +2955,10 @@ pyarrow = [
     {file = "pyarrow-8.0.0-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:8392b9a1e837230090fe916415ed4c3433b2ddb1a798e3f6438303c70fbabcfc"},
     {file = "pyarrow-8.0.0-cp39-cp39-win_amd64.whl", hash = "sha256:cb06cacc19f3b426681f2f6803cc06ff481e7fe5b3a533b406bc5b2138843d4f"},
     {file = "pyarrow-8.0.0.tar.gz", hash = "sha256:4a18a211ed888f1ac0b0ebcb99e2d9a3e913a481120ee9b1fe33d3fedb945d4e"},
+]
+pybind11 = [
+    {file = "pybind11-2.9.2-py2.py3-none-any.whl", hash = "sha256:20f56674da31c96bca7569b91e60f2bd30d693f0728541412ec927574f7bc9df"},
+    {file = "pybind11-2.9.2.tar.gz", hash = "sha256:e5541f8bccf9111d1a94f7897593b55c4cf1a28d5e8cfc8225a855651f011071"},
 ]
 pycodestyle = [
     {file = "pycodestyle-2.7.0-py2.py3-none-any.whl", hash = "sha256:514f76d918fcc0b55c6680472f0a37970994e07bbb80725808c17089be302068"},
@@ -3160,6 +3289,14 @@ scipy = [
     {file = "scipy-1.6.1-cp39-cp39-win_amd64.whl", hash = "sha256:a5193a098ae9f29af283dcf0041f762601faf2e595c0db1da929875b7570353f"},
     {file = "scipy-1.6.1.tar.gz", hash = "sha256:c4fceb864890b6168e79b0e714c585dbe2fd4222768ee90bc1aa0f8218691b11"},
 ]
+seg-text = [
+    {file = "seg_text-0.1.2-py3-none-any.whl", hash = "sha256:9e67af219b81259d916a11708799ef52bb7d765f9d8010028dd8d48e053eda17"},
+    {file = "seg_text-0.1.2.tar.gz", hash = "sha256:37332d6fa755659aba3d93faa1248242c56a5a84e1f9332990802226ad9c4ca8"},
+]
+semantic-version = [
+    {file = "semantic_version-2.10.0-py2.py3-none-any.whl", hash = "sha256:de78a3b8e0feda74cabc54aab2da702113e33ac9d9eb9d2389bcf1f58b7d9177"},
+    {file = "semantic_version-2.10.0.tar.gz", hash = "sha256:bdabb6d336998cbb378d4b9db3a4b56a1e3235701dc05ea2690d9a997ed5041c"},
+]
 semver = [
     {file = "semver-2.13.0-py2.py3-none-any.whl", hash = "sha256:ced8b23dceb22134307c1b8abfa523da14198793d9787ac838e70e29e77458d4"},
     {file = "semver-2.13.0.tar.gz", hash = "sha256:fa0fe2722ee1c3f57eac478820c3a5ae2f624af8264cbdf9000c980ff7f75e3f"},
@@ -3167,6 +3304,10 @@ semver = [
 send2trash = [
     {file = "Send2Trash-1.8.0-py3-none-any.whl", hash = "sha256:f20eaadfdb517eaca5ce077640cb261c7d2698385a6a0f072a4a5447fd49fa08"},
     {file = "Send2Trash-1.8.0.tar.gz", hash = "sha256:d2c24762fd3759860a0aff155e45871447ea58d2be6bdd39b5c8f966a0c99c2d"},
+]
+sentence-splitter = [
+    {file = "sentence_splitter-1.4-py2.py3-none-any.whl", hash = "sha256:5645a3ad9c348e4287f4bc73bd573d92dccd4139042fddd51fff0591f1376763"},
+    {file = "sentence_splitter-1.4.tar.gz", hash = "sha256:3d1d773d07cc733ca2955aa87d0fa1c0a7274c6bdeec1daac5c5e92efb512f63"},
 ]
 sentencepiece = [
     {file = "sentencepiece-0.1.96-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:cc969e6694fb27fba7cee2953f350804faf03913f25ae1ee713a7b8a1bc08018"},
@@ -3217,6 +3358,10 @@ sentencepiece = [
 set-loglevel = [
     {file = "set_loglevel-0.1.2-py3-none-any.whl", hash = "sha256:fcfe76ccd3791511e2cb51ec11ded6cc2186a727e441a934c547a211d0fdf773"},
     {file = "set_loglevel-0.1.2.tar.gz", hash = "sha256:4da23414a798cea918801b113e17af092f13ccda96345203b14042b6d6d3a896"},
+]
+setuptools-rust = [
+    {file = "setuptools-rust-1.3.0.tar.gz", hash = "sha256:958c5bf4ab6483d59dab888538121871cc5006354a42fb0fbd50acf03caad1de"},
+    {file = "setuptools_rust-1.3.0-py3-none-any.whl", hash = "sha256:7ead7398d6b6fe70a7743408dc2f7257dbcb8ca9b2d7a9f8b281c09bd86f36a5"},
 ]
 simplejson = [
     {file = "simplejson-3.17.6-cp27-cp27m-macosx_10_9_x86_64.whl", hash = "sha256:a89acae02b2975b1f8e4974cb8cdf9bf9f6c91162fb8dec50c259ce700f2770a"},
@@ -3460,6 +3605,18 @@ urllib3 = [
 ]
 validators = [
     {file = "validators-0.20.0.tar.gz", hash = "sha256:24148ce4e64100a2d5e267233e23e7afeb55316b47d30faae7eb6e7292bc226a"},
+]
+vtext = [
+    {file = "vtext-0.2.0-cp36-cp36m-macosx_10_14_x86_64.whl", hash = "sha256:1791aad4a999525a7c19ae25ffdeb491839e81e958995567151a3bf8012c32ff"},
+    {file = "vtext-0.2.0-cp36-cp36m-manylinux1_x86_64.whl", hash = "sha256:7ddde99b3153f7bf439b06f69f221c59945b1ce103368ce3a4957e7112ab904b"},
+    {file = "vtext-0.2.0-cp36-cp36m-win_amd64.whl", hash = "sha256:c54d2b4496afa0d8687345b2b89bed7e9aa03b223f0dc58ac923348d0f879a2c"},
+    {file = "vtext-0.2.0-cp37-cp37m-macosx_10_14_x86_64.whl", hash = "sha256:397823cda22d04de43312e27cbe74be4318c20ec2ef38df9c66493580be06ec8"},
+    {file = "vtext-0.2.0-cp37-cp37m-manylinux1_x86_64.whl", hash = "sha256:be3d75845af06d92af9fb65dde8c37ea890f8ed00bb236884fe3b8e2c4b08e32"},
+    {file = "vtext-0.2.0-cp37-cp37m-win_amd64.whl", hash = "sha256:1fa5b18b31637ce012fdfddb1c6a207989320bcf246d5f131695c9fc92b2a32c"},
+    {file = "vtext-0.2.0-cp38-cp38-macosx_10_14_x86_64.whl", hash = "sha256:c7a7826a44b81e9d1779bc800a5ee133647c7943c52b434ae8415df18933f77f"},
+    {file = "vtext-0.2.0-cp38-cp38-manylinux1_x86_64.whl", hash = "sha256:eb37f4b72cf754ff20323f11519da9d3864c7f0a428be847da2ed55a3665cc44"},
+    {file = "vtext-0.2.0-cp38-cp38-win_amd64.whl", hash = "sha256:02c1dbefd2b6fd3522a96a9bd8f8e85ae4722ee088e2d952bbec830b0e88727c"},
+    {file = "vtext-0.2.0.tar.gz", hash = "sha256:0ce1b0bb7e1cc0adcf5c8064757adaa6ea7bf52e366a3d30d2eac0588145f0e6"},
 ]
 watchdog = [
     {file = "watchdog-2.1.8-cp310-cp310-macosx_10_9_universal2.whl", hash = "sha256:676263bee67b165f16b05abc52acc7a94feac5b5ab2449b491f1a97638a79277"},

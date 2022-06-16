@@ -61,7 +61,7 @@ def settings():
         logger.error("sourcecount index error: %s, setting to 0", e)
         index = 0
     sourcecount = st.radio(
-        "Source Count",
+        "Source count",
         sourcecount_list,
         index=index,
         format_func=lambda x: f"{x:<3} |",
@@ -78,12 +78,12 @@ def settings():
         logger.error("sentali sindex error: %s, setting to 0", e)
         index = 0
     sentali = st.radio(
-        "Split to Sents",
+        "Split to sents",
         sentali_list,
         index=index,
-        format_func=lambda x: f"{str(x):<4} |",
-        help="None: leave it as it is; yes: attempt to split to sents in a sensible manner.",
-        disabled=True,
+        format_func=lambda x: f'{str(x) if x else "no":<4}|',
+        help="no: leave it as it is; yes: attempt to split to sents in a sensible manner.",
+        # disabled=True,
     )
     state.ns.sentali = sentali
 

@@ -1,5 +1,5 @@
 {
-   "include": ["tests", "mlbee"],
+   "include": ["tests", "st_mlbee"],
   "venvPath": ".venv",
   "reportTypeshedErrors": false,
   "reportMissingImports": true,

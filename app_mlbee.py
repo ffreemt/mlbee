@@ -148,15 +148,16 @@ def main():
     app = Multipage()
 
     app.add_page("Home", "house", home)
-    app.add_page("Settings", "gear", settings)
+    # app.add_page("Settings", "gear", settings)
+    # app.add_page("Setup", "gear", settings)
+    app.add_page("Config", "gear", settings)
     app.add_page("Info", "info", info)
 
     app.run()
 
     if set_loglevel() <= 10:
         st.markdown(state.ns.count)
-    loggu.debug(f" run: {state.ns.count}")
-    logger.debug(f" run: {state.ns.count}")
+    logger.debug(" run: %s", state.ns.count)
     state.ns.count += 1
     state.ns.updated = False
 

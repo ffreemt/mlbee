@@ -19,5 +19,7 @@ npm install -g npm@latest
 npm install -g nodemon
 rm setup_12.x
 
-# apt upate  # alerady done in apt-get install -y nodejs
+# apt update  # alerady done in apt-get install -y nodejs
 apt install byobu -y > /dev/null 2>&1
+byobu-enable
+byobu

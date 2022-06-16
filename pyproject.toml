@@ -1,7 +1,7 @@
 [tool.poetry]
-name = "mlbee"
-version = "0.1.0-alpha.1"
-description = "st-mlbee"
+name = "st_mlbee"
+version = "0.1.0-alpha.2"
+description = "st-mlbee, mlbee powered by streamlit"
 authors = ["ffreemt"]
 license = "MIT"
 readme = "README.md"
@@ -30,6 +30,7 @@ cchardet = "^2.1.7"
 streamlit-aggrid = "^0.2.3"
 typer = "^0.4.1"
 XlsxWriter = "^3.0.3"
+seg-text = "^0.1.2"
 
 [tool.poe.executor]
 type = "poetry"
@@ -47,7 +48,7 @@ release = ["test", "build", "publish"]
 lint = { cmd = "pylint st_mlbee" }
 isort = "isort tests st_mlbee"
 black = "black tests st_mlbee"
-formt = ["isort", "black"]
+format = ["isort", "black"]
 docstyle = "pydocstyle --convention=google tests st_mlbee"
 prerelease = {cmd = "poetry version prerelease && sync-version"}
 tunnel = {cmd = "ssh -CN ip_or_hostname_defined_in_hosts -L 9091:127.0.0.1:9091"}

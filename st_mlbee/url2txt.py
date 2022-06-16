@@ -1,4 +1,5 @@
 """Fetch text from url."""
+# pylint: disable=too-many-branches
 from typing import Optional
 from urllib.parse import urlparse
 

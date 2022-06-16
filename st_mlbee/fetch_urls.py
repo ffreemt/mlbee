@@ -1,11 +1,11 @@
 """Fetch text from urls and convert to state.ns.list1/list2."""
-# pylint: disable=invalid-name
+# pylint: disable=invalid-name, too-many-statements
 import streamlit as st
 from icecream import ic
 from logzero import logger
 from streamlit import session_state as state
 
-from mlbee.url2txt import url2txt
+from st_mlbee.url2txt import url2txt
 
 ic.configureOutput(
     includeContext=True,
@@ -18,7 +18,8 @@ def fetch_urls():
     beetype = state.ns.beetype
     sourcecount = state.ns.sourcecount
     value = ""
-    if beetype == "ezbee" or beetype == "mlbee":
+    # if beetype == "ezbee" or beetype == "mlbee":
+    if beetype in ["ezbee", "mlbee"]:
         url1 = (
             "https://raw.githubusercontent.com/ffreemt/en-de-zh-txt/master/test_en.txt"
         )
@@ -26,7 +27,7 @@ def fetch_urls():
             "https://raw.githubusercontent.com/ffreemt/en-de-zh-txt/master/test_zh.txt"
         )
         value = f"{url1} {url2}"
-    if beetype == "dzbee":
+    if beetype in ["dzbee"]:
         url1 = "https://raw.githubusercontent.com/ffreemt/en-de-zh-txt/master/sternstunden04-de.txt"
         url2 = "https://raw.githubusercontent.com/ffreemt/en-de-zh-txt/master/sternstunden04-zh.txt"
         value = f"{url1} {url2}"

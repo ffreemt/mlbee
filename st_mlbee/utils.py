@@ -1,4 +1,5 @@
 """Prep front cover for sidebar (based on st-bumblebee-st_app.py)."""
+# pylint: disable=abstract-class-instantiated
 import base64
 from io import BytesIO
 from textwrap import dedent
@@ -9,7 +10,7 @@ import streamlit as st
 from logzero import logger
 from set_loglevel import set_loglevel
 
-from mlbee import __version__
+from st_mlbee import __version__
 
 logzero.loglevel(set_loglevel())
 
@@ -36,6 +37,7 @@ msg = dedent(
     sents, paras of docus).
     Extremely long blocks will likely have a negative impact
     on aligning.
+    On a powerful computer such as an instance on huggingface spaces, the running time can be reduced by a factor of 10-20.
     """
 ).strip()
 

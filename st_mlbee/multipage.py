@@ -31,13 +31,14 @@ class Multipage:
         """Dropdown to select the page to run."""
         # Dropdown to select the page to run
         st.markdown(
+            # 285/280/275/273 OK 270/272 NOK for Config
             """
             <style>
                 section[data-testid="stSidebar"] > div:first-of-type {
                     background-color: var(--secondary-background-color);
                     background: var(--secondary-background-color);
-                    width: 274px;
-                    padding: 2rem 0;
+                    width: 273px;
+                    padding: 1rem 0;
                     box-shadow: -2rem 0px 2rem 2rem rgba(0,0,0,0.16);
                 }
                 section[aria-expanded="true"] > div:nth-of-type(2) {

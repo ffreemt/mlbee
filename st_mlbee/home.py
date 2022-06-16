@@ -3,7 +3,7 @@
 org ezbee_page.py.
 """
 # pylint: disable=invalid-name
-# pylint: disable=too-many-locals, too-many-return-statements, too-many-branches, too-many-statements
+# pylint: disable=too-many-locals, too-many-return-statements, too-many-branches, too-many-statements, abstract-class-instantiated
 import base64
 import platform
 import inspect
@@ -26,18 +26,20 @@ from aset2pairs import aset2pairs
 from icecream import ic
 from loguru import logger as loggu
 from logzero import logger
+from seg_text import seg_text
 from set_loglevel import set_loglevel
 from st_aggrid import AgGrid, GridOptionsBuilder, GridUpdateMode
 
 # from st_aggrid.grid_options_builder import GridOptionsBuilder
 from streamlit import session_state as state
 
-from mlbee.color_map import color_map
-from mlbee.fetch_paste import fetch_paste
-from mlbee.fetch_upload import fetch_upload
-from mlbee.fetch_urls import fetch_urls
-# from mlbee.t2s import t2s
-from mlbee import mlbee
+from st_mlbee.color_map import color_map
+from st_mlbee.fetch_paste import fetch_paste
+from st_mlbee.fetch_upload import fetch_upload
+from st_mlbee.fetch_urls import fetch_urls
+
+# from st_mlbee.t2s import t2s
+from st_mlbee import st_mlbee
 
 
 def home():  # noqa
@@ -74,6 +76,19 @@ def home():  # noqa
     else:
         st.warning(f"{state.ns.sourcetype}: Not implemented")
         return None
+
+    # state.ns.list1 state.ns.list2 defiend in fetch_x
+    if state.ns.sentali:  # split to sents
+        try:
+            state.ns.list1 = seg_text(state.ns.list1)
+        except Exception as exc:
+            logger.exception(exc)
+            raise
+        try:
+            state.ns.list2 = seg_text(state.ns.list2)
+        except Exception as exc:
+            logger.exception(exc)
+            raise
 
     logger.debug("state.ns.updated: %s", state.ns.updated)
 
@@ -132,6 +147,12 @@ def home():  # noqa
         time_max /= 12
         time_av /= 12
 
+    # reduce for sent align
+    if state.ns.sentali:
+        time_min /= 1.4
+        time_max /= 1.4
+        time_av /= 1.4
+
     # time0 = len12 * 0.4
     # time1 = len12 * 1
     # eta = pendulum.now() + pendulum.duration(seconds=len12 * 0.66)
@@ -145,14 +166,16 @@ def home():  # noqa
     dt_str = eta.to_datetime_string()
     timezone_name = eta.timezone_name
     _ = (
-        f"Running in {uname.node} -- "
-        f"Estimated time to complete: {in_words0} to  {in_words1}; "
-        f"ETA: {diff_for_humans} ({dt_str} {timezone_name}) "
+        f"running in {uname.node} -- "
+        f" processing {len1} + {len2} = {len12} blocks; "
+        f"estimated time to complete: {in_words0} to  {in_words1}; "
+        f"eta: {diff_for_humans} ({dt_str} {timezone_name}) "
     )
+    eta_msg = _
+    # st.info(_)
 
     # only show this for upload
     if state.ns.sourcetype in ["upload"]:
-        st.info(_)
         _ = st.expander("to be aligned", expanded=False)
         with _:
             st.write(df)
@@ -162,9 +185,11 @@ def home():  # noqa
     # if state.ns.beetype in ["ezbee", "dzbee", "debee"]:
     if state.ns.beetype in ["mlbee"]:
         with about_time() as t:
-            with st.spinner(" diggin..."):
+            # diggin...
+            with st.spinner(f"{eta_msg}"):
                 try:
-                    aset = globals()[state.ns.beetype](
+                    # aset = globals()[state.ns.beetype](
+                    aset = st_mlbee(
                         list1,
                         list2,
                         # eps=eps,
@@ -218,48 +243,49 @@ def home():  # noqa
             # st.markdown(df_a.astype(str).to_markdown())
             # st.markdown(df_a.astype(str).to_numpy().tolist())
 
-    # insert seq no
-    df_a.insert(0, "sn", range(len(df_a)))
+        # insert seq no
+        df_a.insert(0, "sn", range(len(df_a)))
 
-    gb = GridOptionsBuilder.from_dataframe(df_a)
-    gb.configure_pagination(paginationAutoPageSize=True)
-    options = {
-        "resizable": True,
-        "autoHeight": True,
-        "wrapText": True,
-        "editable": True,
-    }
-    gb.configure_default_column(**options)
-    gridOptions = gb.build()
+        gb = GridOptionsBuilder.from_dataframe(df_a)
+        gb.configure_pagination(paginationAutoPageSize=True)
+        options = {
+            "resizable": True,
+            "autoHeight": True,
+            "wrapText": True,
+            "editable": True,
+        }
+        gb.configure_default_column(**options)
+        gridOptions = gb.build()
 
-    # st.write("editable aligned (double-click a cell to edit, drag column header to adjust widths)")
-    _ = "editable aligned (double-click a cell to edit, drag column header to adjust widths)"
-    with st.expander(_, expanded=False):
-        ag_df = AgGrid(
-            # df,
-            df_a,
-            gridOptions=gridOptions,
-            key="outside",
-            reload_data=True,
-            editable=True,
-            # width="100%",  # width parameter is deprecated
-            height=750,
-            # fit_columns_on_grid_load=True,
-            update_mode=GridUpdateMode.MODEL_CHANGED,
-        )
+        # st.write("editable aligned (double-click a cell to edit, drag column header to adjust widths)")
+        _ = "editable aligned (double-click a cell to edit, drag column header to adjust widths)"
+        with st.expander(_, expanded=False):
+            ag_df = AgGrid(
+                # df,
+                df_a,
+                gridOptions=gridOptions,
+                key="outside",
+                reload_data=True,
+                editable=True,
+                # width="100%",  # width parameter is deprecated
+                height=750,
+                # fit_columns_on_grid_load=True,
+                update_mode=GridUpdateMode.MODEL_CHANGED,
+            )
 
-    # ### prep download
+        # pop("sn"): remove sn column
+        df_a.pop("sn")
+
+    # ### prep download ### #
 
     # taken from vizbee cb_save_xlsx
     # subset = list(df_a.columns[2:3])  # 3rd col
     subset = list(df_a.columns[2:])  # 3rd col
-
-    # pop("sn"): remove sn column
-    df_a.pop("sn")
     s_df = df_a.astype(str).style.applymap(color_map, subset=subset)
 
     if set_loglevel() <= 10:
         logger.debug(" showing styled aligned")
+
     with st.expander("styled aligned"):
         # st.dataframe(s_df)  # can't handle styleddf
         st.table(s_df)
@@ -279,7 +305,12 @@ def home():  # noqa
     if state.ns.src_filename:
         filename = f"{state.ns.src_filename}-"
 
-    dl_xlsx = f'<a href="data:application/octet-stream;base64,{b64.decode()}" download="{filename}aligned_paras.xlsx">Download aligned paras xlsx</a>'
+    if state.ns.sentali:
+        extra = "aligned_sents"
+    else:
+        extra = "aligned_paras"
+
+    dl_xlsx = f'<a href="data:application/octet-stream;base64,{b64.decode()}" download="{filename}-{extra}.xlsx">Download aligned paras xlsx</a>'
 
     _ = """
     output = io.BytesIO()

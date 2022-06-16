@@ -8,14 +8,14 @@ import typer
 from logzero import logger
 from set_loglevel import set_loglevel
 
-from mlbee import __version__, mlbee
+from st_mlbee import __version__, st_mlbee
 
 logzero.loglevel(set_loglevel())
 
 app = typer.Typer(
-    name="mlbee",
+    name="st-mlbee",
     add_completion=False,
-    help="mlbee help",
+    help="st-mlbee help",
 )
 
 
@@ -38,7 +38,6 @@ def main(
     ),
 ):
     """Define."""
-    ...
 
 
 if __name__ == "__main__":

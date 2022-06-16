@@ -1,4 +1,5 @@
 """Fetch upload and convert to list1/list2."""
+# pylint: disable=too-many-locals, too-many-branches, too-many-statements
 import streamlit as st
 from logzero import logger
 from streamlit import session_state as state
