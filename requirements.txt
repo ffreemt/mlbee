@@ -157,3 +157,4 @@ widgetsnbextension==3.6.0; python_version >= "3.7"
 win32-setctime==1.1.0; sys_platform == "win32" and python_version >= "3.5"
 xlsxwriter==3.0.3; python_version >= "3.4"
 zipp==3.8.0; python_version < "3.9" and python_version >= "3.7"
+sentence-transformers
